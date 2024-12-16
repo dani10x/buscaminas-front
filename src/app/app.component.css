@@ -1,0 +1,22 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+  
+  .toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #67B3E6 !important; /* Color de la barra superior */
+    color: white !important; /* Color de texto en la barra superior */
+  }
+  
+  .content {
+    padding: 16px;
+    overflow: auto;
+  }
+  
+  mat-sidenav-content {
+    margin-top: 64px;
+  }
