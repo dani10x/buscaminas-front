@@ -1,0 +1,11 @@
+<div class="tablero">
+    <div *ngFor="let fila of tablero; let i = index" class="fila">
+      <app-casilla 
+        *ngFor="let casilla of fila; let j = index"
+        [descubierta]="casilla.descubierta"
+        [marcada]="casilla.marcada"
+        (casillaDescubierta)="descubrirCasilla(i, j)"
+        (casillaMarcada)="marcarCasilla(i, j)">
+      </app-casilla>
+    </div>
+</div>
