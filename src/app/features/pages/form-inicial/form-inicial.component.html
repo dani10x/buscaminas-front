@@ -1,0 +1,35 @@
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> Form </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+        <div class="example-container">
+            <mat-form-field>
+              <mat-label>Filas</mat-label>
+              <input
+                matInput
+                name="filas"
+                placeholder="Número filas"
+                required
+              />
+              <mat-label>Columnas</mat-label>
+              <input
+                matInput
+                name="columnas"
+                placeholder="Número columnas"
+                required
+              />
+              <mat-label>Minas</mat-label>
+              <input
+                matInput
+                name="minas"
+                placeholder="Número minas"
+                required
+              />
+              
+            </mat-form-field>
+          </div>
+          
+      <button mat-button (click)="enviarDatos()">Iniciar</button>
+    </mat-card-actions>
+  </mat-card>
