@@ -81,7 +81,7 @@ export class WebSocketService {
   public sendMessage(destination: string, message: any): void {
     if (this.stompClient && this.stompClient.connected) {
       this.stompClient.publish({
-        destination: destination, // Ejemplo: "/app/send-message"
+        destination: destination, 
         body: JSON.stringify(message),
       });
     }

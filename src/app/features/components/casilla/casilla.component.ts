@@ -24,7 +24,7 @@ export class CasillaComponent {
   }
 
   marcar(event: MouseEvent) {
-    event.preventDefault(); // Previene el menú contextual del navegador
+    event.preventDefault(); 
     if (!this.descubierta) {
       this.casillaMarcada.emit();
     }

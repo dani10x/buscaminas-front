@@ -9,5 +9,8 @@
         <mat-icon *ngIf="mina">dangerous</mat-icon>
         <span *ngIf="!mina && minasCercanas > 0">{{ minasCercanas }}</span>
       </ng-container> -->
+      <ng-container *ngIf="descubierta"> 
+        <span *ngIf="minasCercanas > 0">{{ minasCercanas }}</span>
+      </ng-container>
       <mat-icon *ngIf="!descubierta && marcada" fontIcon="flag" aria-hidden="false"></mat-icon>
 </button>

@@ -14,6 +14,7 @@ import { AppComponent } from "../../../app.component";
 })
 export class NuevoJuegoComponent implements OnInit {
  
+  private idJugador: string = "";
   constructor(private webSocketService: WebSocketService) {}
 
   ngOnInit(): void {
@@ -23,9 +24,32 @@ export class NuevoJuegoComponent implements OnInit {
     });
   }
 
-  public prueba() {
+  public subscibirseBuscaminas() {
     this.webSocketService.subscribeToTopic('/user/queue/buscaminas').subscribe((message) => {
       console.log('Component received message: ', message);
+      this.procesarMensaje(message);
     });
+    this.obtenerIdJugador();
+  }
+
+  public obtenerIdJugador() {
+    this.webSocketService.sendMessage('/app/iniciar', {});
+  }
+
+  private procesarMensaje(message: string): void {
+    let format = JSON.parse(message);
+    console.log(format);
+    if(format.idUsuario) {
+      this.idJugador = format.idUsuario;
+      this.subsribirseNotificaciones();
+    }
+  }
+
+  public subsribirseNotificaciones() {
+    const topic = '/topic/' + this.idJugador + '/queue/notificaciones';
+    this.webSocketService.subscribeToTopic(topic).subscribe((message) => {
+      console.log('Component received message: ', message);
+      this.procesarMensaje(message);
+    })
   }
 }

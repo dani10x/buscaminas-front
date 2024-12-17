@@ -4,6 +4,7 @@
         *ngFor="let casilla of fila; let j = index"
         [descubierta]="casilla.descubierta"
         [marcada]="casilla.marcada"
+        [minasCercanas]="casilla.minasCercanas"
         (casillaDescubierta)="descubrirCasilla(i, j)"
         (casillaMarcada)="marcarCasilla(i, j)">
       </app-casilla>
