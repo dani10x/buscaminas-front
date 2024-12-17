@@ -28,9 +28,9 @@ export class FormInicialComponent implements OnInit {
 
   ngOnInit(): void {
     this.datosForm = this.fb.group({
-      filas: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      columnas: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      minas: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      filas: ['', [Validators.required, Validators.min(1)]],
+      columnas: ['', [Validators.required, Validators.min(1)]],
+      minas: ['', [Validators.required, Validators.min(1)]],
     });
     this.webSocketService.connect().subscribe({
       next: (res) => console.log(res.respuesta),

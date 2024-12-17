@@ -12,7 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class CasillaComponent {
   @Input() descubierta = false;
   @Input() minasCercanas: number = 0;
-  @Input() marcada = true;
+  @Input() marcada = false;
+  @Input() mina = false;
 
   @Output() casillaDescubierta = new EventEmitter<void>();
   @Output() casillaMarcada = new EventEmitter<void>();

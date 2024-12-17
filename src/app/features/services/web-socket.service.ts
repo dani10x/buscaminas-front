@@ -63,6 +63,7 @@ export class WebSocketService {
   public disconnect(): Observable<Mensaje> {
     return new Observable<Mensaje>((observer) => {
       if (this.stompClient) {
+        this.topicSubjects.clear();
         this.stompClient.deactivate();  
         observer.next({
           error: false,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CasillaComponent } from '../casilla/casilla.component';
 import { WebSocketService } from '../../services/web-socket.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -32,7 +32,8 @@ export class TableroComponent implements OnInit {
       Array.from({ length: this.columnas }, () => ({
         descubierta: false,
         marcada: false,
-        minasCercanas: 0
+        minasCercanas: 0,
+        mina: false
       }))
     );
   }
@@ -64,7 +65,11 @@ export class TableroComponent implements OnInit {
       this.notificar(format);
     }
     else if(Array.isArray(format)) {
-      this.actualizarCasillas(format);
+      if(Array.isArray(format) && Array.isArray(format.at(0))) {
+        this.finalizarJuego(format);
+      } else {
+        this.actualizarCasillas(format);
+      }
     }
   }
 
@@ -73,14 +78,30 @@ export class TableroComponent implements OnInit {
       verticalPosition: "top",
       horizontalPosition: "right",
       duration: 3000
-    })
+    });
   }
 
   private actualizarCasillas(casillas: Array<any>): void {
     casillas.forEach(casilla => {
       this.tablero[casilla.x][casilla.y].minasCercanas = casilla.numero;
       this.tablero[casilla.x][casilla.y].descubierta = true;
+      this.tablero[casilla.x][casilla.y].mina = casilla.mina;
     })
+  }
+
+  private finalizarJuego(tablero: Array<Array<any>>): void {
+    for(let i=0; i<this.filas; i++) {
+      for(let j=0; j<this.columnas; j++) {
+        this.tablero[i][j].minasCercanas = tablero.at(i)?.at(j).minaCercana;
+        this.tablero[i][j].descubierta = true;
+        this.tablero[i][j].marcada = false;
+        this.tablero[i][j].mina = tablero.at(i)?.at(j).mina;
+      }
+    }
+  }
+
+  public resolverJuego() {
+    this.webSocketService.sendMessage('/app/get', {});
   }
 
 }

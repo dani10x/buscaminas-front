@@ -39,6 +39,6 @@
     </form>
   </mat-card-content>
   <mat-card-actions *ngIf="mostrarFormulario">
-    <button mat-button (click)="enviarDatos()">Iniciar</button>
+    <button mat-button (click)="enviarDatos()" [disabled]="datosForm.invalid">Iniciar</button>
   </mat-card-actions>
 </mat-card>
