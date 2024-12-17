@@ -1,35 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { WebSocketService } from '../../services/web-socket.service';
 import { TableroComponent } from '../../components/tablero/tablero.component';
 import { CasillaComponent } from '../../components/casilla/casilla.component';
-import { AppComponent } from "../../../app.component";
+import { AppComponent } from '../../../app.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-juego',
-  imports: [MatCardModule, MatButtonModule, TableroComponent, CasillaComponent, AppComponent],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    TableroComponent,
+    CasillaComponent,
+    AppComponent,
+  ],
   templateUrl: './nuevo-juego.component.html',
-  styleUrl: './nuevo-juego.component.css'
+  styleUrl: './nuevo-juego.component.css',
 })
 export class NuevoJuegoComponent implements OnInit {
- 
-  private idJugador: string = "";
-  constructor(private webSocketService: WebSocketService) {}
+
+  idJugador: string = '';
+  filas!: number;
+  columnas!: number;
+  minas!: number;
+
+  constructor(
+    private webSocketService: WebSocketService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.webSocketService.connect().subscribe({
-      next: (res) => console.log(res.respuesta),
-      error: (error) => console.error(error.respuesta)
+    this.route.queryParamMap.subscribe((params) => {
+      let filas = params.get('filas');
+      let columnas = params.get('columnas');
+      let minas = params.get('minas');
+      let idJugador = params.get('idJugador');
+      if(filas) {
+        this.filas = Number.parseInt(filas);
+      }
+      if(columnas) {
+        this.columnas = Number.parseInt(columnas);
+      }
+      if(minas) {
+        this.minas = Number.parseInt(minas);
+      }
+      if(idJugador) {
+        this.idJugador = idJugador;
+      }
     });
+    this.webSocketService.sendMessage('/app/nuevo', {filas: this.filas, columnas: this.columnas, minas: this.minas});
   }
 
-  public subscibirseBuscaminas() {
-    this.webSocketService.subscribeToTopic('/user/queue/buscaminas').subscribe((message) => {
-      console.log('Component received message: ', message);
-      this.procesarMensaje(message);
-    });
-    this.obtenerIdJugador();
+  /*public subscibirseBuscaminas() {
+    this.webSocketService
+      .subscribeToTopic('/user/queue/buscaminas')
+      .subscribe((message) => {
+        console.log('Component received message: ', message);
+        this.procesarMensaje(message);
+      });
   }
 
   public obtenerIdJugador() {
@@ -39,7 +69,7 @@ export class NuevoJuegoComponent implements OnInit {
   private procesarMensaje(message: string): void {
     let format = JSON.parse(message);
     console.log(format);
-    if(format.idUsuario) {
+    if (format.idUsuario) {
       this.idJugador = format.idUsuario;
       this.subsribirseNotificaciones();
     }
@@ -50,6 +80,6 @@ export class NuevoJuegoComponent implements OnInit {
     this.webSocketService.subscribeToTopic(topic).subscribe((message) => {
       console.log('Component received message: ', message);
       this.procesarMensaje(message);
-    })
-  }
+    });
+  }*/
 }

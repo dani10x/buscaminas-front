@@ -24,7 +24,7 @@ export class TableroComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializarTablero();
-    //this.subcribirsePartida();
+    this.subcribirsePartida();
   }
 
   public inicializarTablero() {
@@ -60,11 +60,11 @@ export class TableroComponent implements OnInit {
   private procesarMensaje(message: string): void {
     let format = JSON.parse(message);
     console.log(format);
-    if(format.respuesta && format.error){
+    if(format.respuesta){
       this.notificar(format);
     }
     else if(Array.isArray(format)) {
-
+      this.actualizarCasillas(format);
     }
   }
 

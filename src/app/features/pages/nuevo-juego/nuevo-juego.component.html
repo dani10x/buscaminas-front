@@ -1,8 +1,8 @@
 <mat-card appearance="outlined">
     <mat-card-header>
-      <button mat-button (click)="subscibirseBuscaminas()">Iniciar</button>
+      <mat-card-title>Juego</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <app-tablero></app-tablero>
+        <app-tablero [columnas]="columnas" [filas]="filas" [idJugador]="idJugador"></app-tablero>
     </mat-card-content>
 </mat-card>

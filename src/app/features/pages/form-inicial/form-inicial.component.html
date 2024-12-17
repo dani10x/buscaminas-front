@@ -1,35 +1,44 @@
 <mat-card appearance="outlined">
-    <mat-card-header>
-      <mat-card-title> Form </mat-card-title>
-    </mat-card-header>
-    <mat-card-actions>
-        <div class="example-container">
-            <mat-form-field>
-              <mat-label>Filas</mat-label>
-              <input
-                matInput
-                name="filas"
-                placeholder="Número filas"
-                required
-              />
-              <mat-label>Columnas</mat-label>
-              <input
-                matInput
-                name="columnas"
-                placeholder="Número columnas"
-                required
-              />
-              <mat-label>Minas</mat-label>
-              <input
-                matInput
-                name="minas"
-                placeholder="Número minas"
-                required
-              />
-              
-            </mat-form-field>
-          </div>
-          
-      <button mat-button (click)="enviarDatos()">Iniciar</button>
-    </mat-card-actions>
-  </mat-card>
+  <mat-card-header>
+    <button mat-button (click)="subscibirseBuscaminas()" *ngIf="!mostrarFormulario">Conectar</button>
+  </mat-card-header>
+  <mat-card-content *ngIf="mostrarFormulario">
+    <form [formGroup]="datosForm">
+      <div class="example-container">
+        <mat-form-field>
+          <mat-label>Filas</mat-label>
+          <input
+            matInput
+            name="filas"
+            placeholder="Número filas"
+            type="number"
+            formControlName="filas"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Columnas</mat-label>
+          <input
+            matInput
+            name="columnas"
+            placeholder="Número columnas"
+            type="number"
+            formControlName="columnas"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Minas</mat-label>
+          <input
+            matInput
+            name="minas"
+            placeholder="Número minas"
+            type="number"
+            formControlName="minas"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions *ngIf="mostrarFormulario">
+    <button mat-button (click)="enviarDatos()">Iniciar</button>
+  </mat-card-actions>
+</mat-card>

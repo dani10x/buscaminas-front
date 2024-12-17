@@ -1,9 +1,10 @@
 <button mat-raised-button 
       class="casilla" 
-      color="primary"
       (click)="descubrir()"
       (contextmenu)="marcar($event)"
-      [disabled]="descubierta">
+      [disabled]="descubierta"
+      [ngStyle]="{'background-color': descubierta ? 'lightgray' : 'gray'}"
+      >
       <!-- 
       <ng-container *ngIf="descubierta">
         <mat-icon *ngIf="mina">dangerous</mat-icon>
